@@ -3,18 +3,18 @@
 const express = require('express');
 const cors = require('cors');
 const Joi = require('joi'); 
-const config = require('./config'); // <-- Importa o novo arquivo
+const config = require('./config');
 
 const app = express();
 const port = 3000;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Esquema de validação com Joi
+// Novo esquema de validação para os CEPs
 const freightSchema = Joi.object({
-  distance: Joi.number().min(0).max(10000).required(),
+  originCep: Joi.string().pattern(/^\d{8}$/).required(),
+  destinationCep: Joi.string().pattern(/^\d{8}$/).required(),
   weight: Joi.number().min(0).max(1000).required(),
 });
 
@@ -29,20 +29,26 @@ app.post('/calculate-freight', (req, res) => {
     });
   }
   
-  const { distance, weight } = value;
+  const { originCep, destinationCep, weight } = value;
 
-  // Usa as variáveis do arquivo de configuração
-  const freightValue = config.BASE_RATE + (distance * config.COST_PER_KM) + (weight * config.COST_PER_KG);
+  // Lógica de cálculo de distância simulada
+  // Em uma implementação real, esta seria a chamada para uma API de geolocalização.
+  let simulatedDistance = 0;
+  if (originCep.substring(0, 5) === destinationCep.substring(0, 5)) {
+    simulatedDistance = 25; // Distância curta para CEPs próximos
+  } else {
+    simulatedDistance = 500; // Distância longa para CEPs diferentes
+  }
+  
+  const freightValue = config.BASE_RATE + (simulatedDistance * config.COST_PER_KM) + (weight * config.COST_PER_KG);
 
   res.json({ freightValue: parseFloat(freightValue.toFixed(2)) });
 });
 
-// Rota de teste
 app.get('/', (req, res) => {
   res.send('API de Frete está online!');
 });
 
-// Inicia o servidor
 app.listen(port, () => {
   console.log(`API de Frete rodando em http://localhost:${port}`);
 });
