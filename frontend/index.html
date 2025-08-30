@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Frete</title>
+    <link rel="stylesheet" href="./src/css/style.css">
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>Calculadora de Frete</h1>
+        <div class="form-group">
+            <label for="distance">Distância (km):</label>
+            <input type="number" id="distance" required>
+        </div>
+        <div class="form-group">
+            <label for="weight">Peso (kg):</label>
+            <input type="number" id="weight" required>
+        </div>
+        <button id="calculate-btn">Calcular</button>
+        <p id="error-message" class="error-message"></p>
+        <div id="result-container" class="result-container">
+            <p>Valor Estimado:</p>
+            <p id="freight-result">R$ 0,00</p>
+        </div>
+    </div>
+    <script src="./src/script/script.js"></script>
+</body>
+</html>
