@@ -1,69 +1,116 @@
-       body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f4;
-        }
-        .calculator-container {
-            background-color: #fff;
-            padding: 2em;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-        h1 {
-            color: #333;
-            margin-bottom: 1em;
-        }
-        .form-group {
-            margin-bottom: 1em;
-            text-align: left;
-        }
-        label {
-            display: block;
-            margin-bottom: 0.5em;
-            color: #555;
-            font-weight: bold;
-        }
-        input {
-            width: 100%;
-            padding: 0.75em;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        button {
-            width: 100%;
-            padding: 1em;
-            border: none;
-            background-color: #4CAF50;
-            color: white;
-            font-size: 1em;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .result-container {
-            margin-top: 1.5em;
-            padding: 1em;
-            border: 2px dashed #4CAF50;
-            border-radius: 4px;
-            display: none; /* Inicialmente oculto */
-        }
-        #freight-result {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #333;
-        }
-        .error-message {
-            color: red;
-            margin-top: 1em;
-        }
+/* Localização: calculadora-de-frete-app/frontend/style.css */
+
+/* Importa a fonte Montserrat do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Garante que o corpo ocupe toda a altura da tela */
+    margin: 0;
+    background: linear-gradient(135deg, #72a6b2, #4c7c8c);
+    color: #333;
+}
+.calculator-container {
+    background-color: #fff;
+    padding: 2.5em;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+}
+h1 {
+    color: #4c7c8c;
+    margin-bottom: 1em;
+    font-size: 2em;
+}
+.form-group {
+    margin-bottom: 1.5em;
+    text-align: left;
+}
+label {
+    display: block;
+    margin-bottom: 0.5em;
+    color: #555;
+    font-weight: bold;
+}
+input {
+    width: 100%;
+    padding: 0.9em;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+input:focus {
+    outline: none;
+    border-color: #72a6b2;
+}
+button {
+    width: 100%;
+    padding: 1em;
+    border: none;
+    background-color: #4c7c8c;
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+}
+button:hover {
+    background-color: #72a6b2;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+.result-container {
+    margin-top: 2em;
+    padding: 1.5em;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    display: none;
+    background-color: #f9f9f9;
+}
+#freight-result {
+    font-size: 2em;
+    font-weight: bold;
+    color: #4c7c8c;
+    margin-top: 0.5em;
+}
+.error-message, .loading-message {
+    margin-top: 1em;
+    font-weight: bold;
+}
+.error-message {
+    color: #e74c3c;
+}
+.loading-message {
+    color: #3498db;
+    animation: pulse 1.5s infinite;
+}
+/* Animação para a mensagem de carregamento */
+@keyframes pulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+/* Media Query para telas menores (smartphones) */
+@media (max-width: 600px) {
+    .calculator-container {
+        padding: 1.5em;
+    }
+    h1 {
+        font-size: 1.8em;
+    }
+}
