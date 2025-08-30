@@ -1,4 +1,4 @@
-// Localização: /script.js
+// Localização: calculadora-de-frete-app/frontend/script.js
 
 document.addEventListener('DOMContentLoaded', () => {
     const calculateBtn = document.getElementById('calculate-btn');
@@ -16,14 +16,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const distance = parseFloat(distanceInput.value);
         const weight = parseFloat(weightInput.value);
 
-        // Validação básica no frontend
+        // Validação no frontend: Verifica se os campos estão vazios
+        if (distanceInput.value === '' || weightInput.value === '') {
+            errorMessage.textContent = 'Por favor, preencha todos os campos.';
+            return;
+        }
+
+        // Validação no frontend: Verifica se os valores são números e não são negativos
         if (isNaN(distance) || isNaN(weight) || distance < 0 || weight < 0) {
-            errorMessage.textContent = 'Por favor, insira valores válidos e positivos para distância e peso.';
+            errorMessage.textContent = 'A distância e o peso devem ser números positivos.';
             return;
         }
 
         try {
-            // Chamada à API do backend usando a API nativa 'fetch'
+            // Chamada à API do backend
             const response = await fetch('http://localhost:3000/calculate-freight', {
                 method: 'POST',
                 headers: {
@@ -33,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) {
-                // Se a resposta da API não for bem-sucedida, lança um erro
+                // Se o backend retornar um erro, lê a mensagem dele
                 const errorData = await response.json();
                 throw new Error(errorData.error || 'Erro no servidor. Tente novamente.');
             }
@@ -44,8 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
             freightResult.textContent = `R$ ${data.freightValue.toFixed(2)}`;
             resultContainer.style.display = 'block';
         } catch (error) {
+            // Exibe a mensagem de erro da requisição ou do backend
             errorMessage.textContent = error.message;
-            console.error('Erro:', error);
+            console.error('Erro na requisição:', error);
         }
     });
 });
